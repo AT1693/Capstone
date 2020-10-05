@@ -12,9 +12,6 @@ import ghostvlad.model as spkModel
 import os
 from viewer import PlotDiar
 
-# ===========================================
-#        Parse the argument
-# ===========================================
 import argparse
 parser = argparse.ArgumentParser()
 # set up training configuration.
