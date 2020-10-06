@@ -39,11 +39,11 @@ void loop(){
   fingerprintID = getFingerprintIDez();
   delay(50);
   if(fingerprintID == 1 || fingerprintID == 3 || fingerprintID == 4 || fingerprintID == 5){
-    IDname = "Sara";
+    IDname = "Alarsh";
     displayUserGreeting(IDname);            
   }  
   else if(fingerprintID == 2){
-    IDname = "Rui";  
+    IDname = "Sonali";  
     displayUserGreeting(IDname);            
   }
 }
