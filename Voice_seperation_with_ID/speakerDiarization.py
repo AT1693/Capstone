@@ -1,6 +1,3 @@
-
-"""A demo script showing how to DIARIZATION ON WAV USING UIS-RNN."""
-
 import numpy as np
 import uisrnn
 import librosa
@@ -93,16 +90,10 @@ def lin_spectogram_from_wav(wav, hop_length, win_length, n_fft=1024):
     return linear.T
 
 
-# 0s        1s        2s                  4s                  6s
-# |-------------------|-------------------|-------------------|
-# |-------------------|
-#           |-------------------|
-#                     |-------------------|
-#                               |-------------------|
 def load_data(path, win_length=400, sr=16000, hop_length=160, n_fft=512, embedding_per_second=0.5, overlap_rate=0.5):
     wav, intervals = load_wav(path, sr=sr)
     linear_spect = lin_spectogram_from_wav(wav, hop_length, win_length, n_fft)
-    mag, _ = librosa.magphase(linear_spect)  # magnitude
+    mag, _ = librosa.magphase(linear_spect) 
     mag_T = mag.T
     freq, time = mag_T.shape
     spec_mag = mag_T
@@ -113,12 +104,11 @@ def load_data(path, win_length=400, sr=16000, hop_length=160, n_fft=512, embeddi
     cur_slide = 0.0
     utterances_spec = []
 
-    while(True):  # slide window.
+    while(True):
         if(cur_slide + spec_len > time):
             break
         spec_mag = mag_T[:, int(cur_slide+0.5) : int(cur_slide+spec_len+0.5)]
         
-        # preprocessing, subtract mean, divided by time-wise var
         mu = np.mean(spec_mag, 0, keepdims=True)
         std = np.std(spec_mag, 0, keepdims=True)
         spec_mag = (spec_mag - mu) / (std + 1e-5)
